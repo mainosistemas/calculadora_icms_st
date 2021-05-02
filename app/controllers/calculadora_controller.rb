@@ -24,11 +24,9 @@ class CalculadoraController < ApplicationController
     aliquota_operacao = params[:aliquota_operacao].to_f
     aliquota_interna = params[:aliquota_interna].to_f
 
-    base_de_calculo_icms = valor_produto + valor_frete + valor_seguro + valor_outras_despesas - valor_descontos
-    base_de_calculo_icms_st = (base_de_calculo_icms + valor_ipi) * (1 + (mva / 100))
-    valor_icms_operacao = base_de_calculo_icms * (aliquota_operacao / 100)
-    valor_icms_st = base_de_calculo_icms_st * (aliquota_interna / 100) - valor_icms_operacao
-
-    render plain: valor_icms_st
+    @base_de_calculo_icms = valor_produto + valor_frete + valor_seguro + valor_outras_despesas - valor_descontos
+    @base_de_calculo_icms_st = (@base_de_calculo_icms + valor_ipi) * (1 + (mva / 100))
+    @valor_icms_operacao = @base_de_calculo_icms * (aliquota_operacao / 100)
+    @valor_icms_st = @base_de_calculo_icms_st * (aliquota_interna / 100) - @valor_icms_operacao
   end
 end
