@@ -1,19 +1,37 @@
+# Base de cálculo do ICMS interestadual:
+# (Valor do Produto + Frete + Seguro + Outras Despesas Acessórias – Descontos)
+#
+# Valor do ICMS interestadual:
+# (Base de cálculo do ICMS interestadual) * (Alíquota de ICMS interestadual / 100)
+#
+# Base de cálculo do ICMS ST:
+# (Valor do Produto + Valor do IPI + Frete + Seguro + Outras Despesas Acessórias – Descontos) x (1+ (Margem de Valor Agregado/100)
+#
+# Valor do ICMS ST:
+# ((Base de cálculo do ICMS ST) * (Alíquota do ICMS interno / 100)) - Valor do ICMS interestadual
+#
+# Exemplo de cálculo:
+# Valor do produto: 8.500,00
+# Valor do IPI: 400,00
+# Valor do frete: 35,00
+# Valor do seguro: 65,00
+# Valor de outras despesas acessórias: 1.500,00
+# Valor dos descontos: 500,00
+# Margem de Valor Agregado: 39%
+# Alíquota do ICMS interestadual: 7%
+# Alíquota do ICMS interno: 18%
+#
+# Resultado:
+# Base de cálculo do ICMS interestadual: 9600,00
+# Valor do ICMS interestadual: 672,00
+# Base de cálculo do ICMS ST: 13.900,00
+# Valor do ICMS ST: 1.830,00
+
 class CalculadoraController < ApplicationController
   def index
   end
 
   def calcular
-    # Base de cálculo do ICMS interestadual:
-    # (Valor do Produto + Frete + Seguro + Outras Despesas Acessórias – Descontos)
-    #
-    # Valor do ICMS interestadual:
-    # (Base de cálculo do ICMS interestadual) * (Alíquota de ICMS interestadual / 100)
-    #
-    # Base de cálculo do ICMS ST:
-    # (Valor do Produto + Valor do IPI + Frete + Seguro + Outras Despesas Acessórias – Descontos) x (1+ (Margem de Valor Agregado/100)
-    #
-    # Valor do ICMS ST:
-    # ((Base de cálculo do ICMS ST) * (Alíquota do ICMS interno / 100)) - Valor do ICMS interestadual
     valor_produto = params[:valor_produto].to_f
     valor_ipi = params[:valor_ipi].to_f
     valor_frete = params[:valor_frete].to_f
