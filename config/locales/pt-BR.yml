@@ -223,8 +223,11 @@ pt-BR:
     pm: ''
   calculadora:
     valor_produto: "Valor dos produtos"
+    valor_ipi: "Valor do IPI"
     valor_frete: "Valor do frete"
     valor_seguro: "Valor do seguro"
     valor_outras_despesas: "Outras despesas acessórias"
     valor_descontos: "Valor dos descontos"
     mva: "Margem de Valor Agregado"
+    aliquota_operacao: "Alíquota de ICMS da operação"
+    aliquota_interna: "Alíquota de ICMS do estado do destinatário"
