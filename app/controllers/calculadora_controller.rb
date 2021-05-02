@@ -5,7 +5,7 @@
 # (Base de cálculo do ICMS interestadual) * (Alíquota de ICMS interestadual / 100)
 #
 # Base de cálculo do ICMS ST:
-# (Valor do Produto + Valor do IPI + Frete + Seguro + Outras Despesas Acessórias – Descontos) x (1+ (Margem de Valor Agregado/100)
+# (Valor do Produto + Valor do IPI + Frete + Seguro + Outras Despesas Acessórias – Descontos) * (1+ (Margem de Valor Agregado/100)
 #
 # Valor do ICMS ST:
 # ((Base de cálculo do ICMS ST) * (Alíquota do ICMS interno / 100)) - Valor do ICMS interestadual
@@ -26,6 +26,17 @@
 # Valor do ICMS interestadual: 672,00
 # Base de cálculo do ICMS ST: 13.900,00
 # Valor do ICMS ST: 1.830,00
+#
+# Cálculo da MVA ajustada:
+# ((1 + (MVA original / 100)) * (1 - (alíquota da operação / 100)) / (1 - (alíquota do destinatário / 100)) - 1) * 100
+#
+# Exemplo de MVA ajustada:
+# MVA original: 50%
+# Alíquota do ICMS interestadual: 7%
+# Alíquota do ICMS interno: 18%
+#
+# Resultado:
+# MVA ajustada: 70,12 (arredondar para duas casas decimais)
 
 class CalculadoraController < ApplicationController
   def index
