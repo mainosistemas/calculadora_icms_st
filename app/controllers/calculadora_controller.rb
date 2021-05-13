@@ -43,19 +43,23 @@ class CalculadoraController < ApplicationController
   end
 
   def calcular
-    valor_produto = params[:valor_produto].to_f
-    valor_ipi = params[:valor_ipi].to_f
-    valor_frete = params[:valor_frete].to_f
-    valor_seguro = params[:valor_seguro].to_f
-    valor_outras_despesas = params[:valor_outras_despesas].to_f
-    valor_descontos = params[:valor_descontos].to_f
-    mva = params[:mva].to_f
-    aliquota_operacao = params[:aliquota_operacao].to_f
-    aliquota_interna = params[:aliquota_interna].to_f
-
-    @base_de_calculo_icms = valor_produto + valor_frete + valor_seguro + valor_outras_despesas - valor_descontos
-    @base_de_calculo_icms_st = (@base_de_calculo_icms + valor_ipi) * (1 + (mva / 100))
-    @valor_icms_operacao = @base_de_calculo_icms * (aliquota_operacao / 100)
-    @valor_icms_st = @base_de_calculo_icms_st * (aliquota_interna / 100) - @valor_icms_operacao
+    service = CalculatorService.new(calculador_params)
+    if service.success
+      respond_to do |format|
+        format.json { render json: service.result }
+        format.html { render 'calcular.html', locals: service.result }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: { errors: service.errors }, status: :bad_request }
+        format.html { render '500.html', status: :bad_request }
+      end
+    end
   end
+
+  private 
+
+    def calculador_params
+      params.require(:values).permit(:valor_produto, :valor_ipi, :valor_frete, :valor_seguro, :valor_outras_despesas, :valor_descontos, :mva, :aliquota_operacao, :aliquota_interna)
+    end
 end
